@@ -21,25 +21,40 @@
     section {
       padding: 40px 20px;
     }
+
+    /* Botão base */
     .btn {
       display: inline-block;
       margin-top: 25px;
       padding: 15px 30px;
-      background: #ff914d;
       color: white;
       text-decoration: none;
       border-radius: 10px;
       font-size: 18px;
       font-weight: bold;
     }
-    .btn:hover {
-      opacity: 0.9;
+
+    /* Botão YouTube */
+    .btn-youtube {
+      background: #e53935;
     }
+
+    /* Botão navegação interna */
+    .btn-interno {
+      background: #ff914d;
+    }
+
     footer {
       background: #333;
       color: white;
       padding: 15px;
       font-size: 14px;
+    }
+
+    footer a {
+      color: #ff914d;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -48,26 +63,31 @@
 <header>
   <h1>🐣 Ninho de Histórias</h1>
   <p>Histórias infantis para dormir, aprender e sonhar 🌙✨</p>
+
+  <a class="btn btn-youtube"
+     href="https://www.youtube.com/@NinhodeHist%C3%B3rias-5/playlists"
+     target="_blank">
+    ▶ Ver todas as histórias no YouTube
+  </a>
 </header>
 
 <section>
   <h2>Bem-vindo!</h2>
 
   <p>
-  <a href="historias.html">📖 Histórias em Vídeo</a>
+    <a class="btn btn-interno" href="historias.html">📖 Histórias em Vídeo</a>
   </p>
 
   <p>
-  <a href="audios.html">🎧 Histórias em áudio</a>
+    <a class="btn btn-interno" href="audios.html">🎧 Histórias em áudio</a>
   </p>
 
-
   <p>
-  <a href="leitura.html">📘 Histórias para ler</a>
+    <a class="btn btn-interno" href="leitura.html">📘 Histórias para ler</a>
   </p> 
 
   <p>
-  <a href="sobre.html">Conheça o Ninho de Histórias</a>
+    <a class="btn btn-interno" href="sobre.html">ℹ️ Conheça o Ninho de Histórias</a>
   </p>
 
   <p>
@@ -77,20 +97,16 @@
   <p>
     Todos os vídeos estão disponíveis em nosso canal no YouTube.
   </p>
-
-  <a class="btn" 
-     href="https://www.youtube.com/@NinhodeHistórias-5" 
-     target="_blank">
-    👉 Assistir no YouTube
-  </a>
 </section>
 
 <footer>
- <p>
-  <a href="mapa-do-site.html" style="color:white;">Mapa do site</a>
-</p>
-            © 2025 - Ninho de Histórias
+  <p>
+    <a href="mapa-do-site.html">🗺 Mapa do site</a>
+  </p>
+  © 2025 - Ninho de Histórias
 </footer>
 
 </body>
 </html>
+
+
