@@ -51,22 +51,40 @@
       font-size: 20px;
       line-height: 2;
     }
+
+    /* Botão base */
     .btn {
       display: inline-block;
       margin-top: 25px;
       padding: 12px 25px;
-      background: #ff914d;
       color: white;
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
     }
+
+    /* Botão YouTube */
+    .btn-youtube {
+      background: #e53935;
+    }
+
+    /* Botão navegação interna */
+    .btn-interno {
+      background: #ff914d;
+    }
+
     footer {
       background: #333;
       color: white;
       padding: 15px;
       font-size: 14px;
       margin-top: 40px;
+    }
+
+    footer a {
+      color: #ff914d;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -75,6 +93,12 @@
 <header>
   <h1>📘 Leitura Infantil</h1>
   <p>Histórias para imaginar, pensar e sonhar</p>
+
+  <a class="btn btn-youtube"
+     href="https://www.youtube.com/@NinhodeHist%C3%B3rias-5/playlists"
+     target="_blank">
+    ▶ Ver todas as histórias no YouTube
+  </a>
 </header>
 
 <section>
@@ -95,7 +119,6 @@
     </p>
   </div>
 
-  <!-- ANIMAIS -->
   <h2>🐾 Histórias sobre Animais</h2>
 
   <div class="story">
@@ -134,7 +157,6 @@
     </p>
   </div>
 
-  <!-- AMIZADE -->
   <h2>🤝 Histórias sobre Amizade</h2>
 
   <div class="story">
@@ -161,7 +183,6 @@
     </p>
   </div>
 
-  <!-- ESCOLA -->
   <h2>🏫 Histórias sobre Escola</h2>
 
   <div class="story">
@@ -188,7 +209,6 @@
     </p>
   </div>
 
-  <!-- DORMIR -->
   <h2>🌙 Histórias para Dormir</h2>
 
   <div class="story">
@@ -215,16 +235,17 @@
     </p>
   </div>
 
-  <a class="btn" href="index.html">⬅ Voltar para a página inicial</a>
+  <a class="btn btn-interno" href="index.html">⬅ Voltar para a página inicial</a>
 
 </section>
 
 <footer>
- <p>
-  <a href="mapa-do-site.html" style="color:white;">Mapa do site</a>
-</p>
-            © 2025 - Ninho de Histórias
+  <p>
+    <a href="mapa-do-site.html">🗺 Mapa do site</a>
+  </p>
+  © 2025 - Ninho de Histórias
 </footer>
 
 </body>
 </html>
+
