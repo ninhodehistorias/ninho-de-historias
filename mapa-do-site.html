@@ -15,65 +15,70 @@
     }
 
     header {
-      padding: 30px 15px 10px;
+      padding: 30px 15px 20px;
     }
 
     header h1 {
       font-size: 32px;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
 
     header p {
       font-size: 18px;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
     }
 
     section {
-      max-width: 900px;
+      max-width: 800px;
       margin: auto;
-      padding: 0 15px 40px;
+      padding-bottom: 40px;
     }
 
     .lista {
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      align-items: center;
+      gap: 28px;
     }
 
-    /* BOTÃO AJUSTADO */
+    /* BOTÃO NO TAMANHO DA IMAGEM */
     .btn-link {
-      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 12px;
+      width: 320px;
       background: #ff914d;
       color: white;
       text-decoration: none;
       font-weight: bold;
       font-size: 20px;
-      padding: 22px 20px;
-      border-radius: 18px;
+      padding: 16px 20px;
+      border-radius: 16px;
       transition: background 0.3s, transform 0.2s;
     }
 
     .btn-link:hover {
       background: #ff7a2c;
-      transform: scale(1.01);
+      transform: scale(1.03);
     }
 
-    /* SETA FIXA À ESQUERDA */
-    .btn-link::before {
-      content: "←";
-      position: absolute;
-      left: 25px;
-      font-size: 26px;
+    .btn-link span {
+      font-size: 22px;
     }
 
     footer {
-      margin-top: 30px;
+      margin-top: 40px;
       padding: 15px;
       font-size: 14px;
-      color: #000;
+    }
+
+    /* Ajuste para celular */
+    @media (max-width: 420px) {
+      .btn-link {
+        width: 90%;
+        font-size: 18px;
+      }
     }
   </style>
 </head>
@@ -89,24 +94,20 @@
 
   <div class="lista">
 
-    <a class="btn-link" href="index.html">
-      Página Inicial
-    </a>
-
-    <a class="btn-link" href="sobre.html">
-      Sobre o Ninho de Histórias
-    </a>
-
     <a class="btn-link" href="historias.html">
-      Histórias em Vídeo
-    </a>
-
-    <a class="btn-link" href="leitura.html">
-      Histórias para Leitura
+      <span>📖</span> Histórias em Vídeo
     </a>
 
     <a class="btn-link" href="audios.html">
-      Histórias em Áudio
+      <span>🎧</span> Histórias em Áudio
+    </a>
+
+    <a class="btn-link" href="leitura.html">
+      <span>📱</span> Histórias para Ler
+    </a>
+
+    <a class="btn-link" href="sobre.html">
+      <span>ℹ️</span> Conheça o Ninho de Histórias
     </a>
 
   </div>
