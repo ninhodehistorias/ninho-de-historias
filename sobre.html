@@ -25,19 +25,31 @@
     }
     p {
       font-size: 18px;
-      line-height: 1.6;
+      line-height: 1.7;
     }
+
+    /* Botão base */
     .btn {
       display: inline-block;
       margin-top: 25px;
       padding: 12px 25px;
-      background: #ff914d;
       color: white;
       text-decoration: none;
       border-radius: 8px;
       font-size: 16px;
       font-weight: bold;
     }
+
+    /* Botão YouTube */
+    .btn-youtube {
+      background: #e53935;
+    }
+
+    /* Botão interno */
+    .btn-interno {
+      background: #ff914d;
+    }
+
     footer {
       background: #333;
       color: white;
@@ -45,12 +57,25 @@
       font-size: 14px;
       margin-top: 40px;
     }
+
+    footer a {
+      color: #ff914d;
+      text-decoration: none;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
 <header>
   <h1>🐣 Sobre o Ninho de Histórias</h1>
+  <p>Histórias criadas com carinho para momentos especiais</p>
+
+  <a class="btn btn-youtube"
+     href="https://www.youtube.com/@NinhodeHist%C3%B3rias-5/playlists"
+     target="_blank">
+    ▶ Ver todas as histórias no YouTube
+  </a>
 </header>
 
 <section>
@@ -69,15 +94,16 @@
     ideais para a hora de dormir ou para momentos especiais em família.
   </p>
 
-  <a class="btn" href="index.html">⬅ Voltar para a página inicial</a>
+  <a class="btn btn-interno" href="index.html">⬅ Voltar para a página inicial</a>
 </section>
 
 <footer>
- <p>
-  <a href="mapa-do-site.html" style="color:white;">Mapa do site</a>
-</p>
-            © 2025 - Ninho de Histórias
+  <p>
+    <a href="mapa-do-site.html">🗺 Mapa do site</a>
+  </p>
+  © 2025 - Ninho de Histórias
 </footer>
 
 </body>
 </html>
+
