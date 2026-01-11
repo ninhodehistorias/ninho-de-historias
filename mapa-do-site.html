@@ -6,35 +6,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Mapa do site Ninho de Histórias. Encontre todas as páginas de histórias infantis, leitura e áudios.">
 
- <style>
-  /* Botões de navegação (estilo da imagem) */
-  .btn-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: #ff914d;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    padding: 18px 25px;
-    border-radius: 14px;
-    margin: 15px 0;
-    transition: background 0.3s, transform 0.2s;
-  }
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      text-align: center;
+    }
 
-  .btn-link:hover {
-    background: #ff7a2c;
-    transform: scale(1.02);
-  }
+    header {
+      padding: 30px 15px 10px;
+    }
 
-  .btn-link span {
-    font-size: 22px;
-  }
-</style>
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
 
+    header p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 0 15px 40px;
+    }
+
+    .lista {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* BOTÃO AJUSTADO */
+    .btn-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ff914d;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 20px;
+      padding: 22px 20px;
+      border-radius: 18px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-link:hover {
+      background: #ff7a2c;
+      transform: scale(1.01);
+    }
+
+    /* SETA FIXA À ESQUERDA */
+    .btn-link::before {
+      content: "←";
+      position: absolute;
+      left: 25px;
+      font-size: 26px;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 15px;
+      font-size: 14px;
+      color: #000;
+    }
+  </style>
 </head>
+
 <body>
 
 <header>
@@ -44,30 +87,29 @@
 
 <section>
 
-<div class="lista">
+  <div class="lista">
 
-  <a class="btn-link" href="index.html">
-    <span>←</span> Página Inicial
-  </a>
+    <a class="btn-link" href="index.html">
+      Página Inicial
+    </a>
 
-  <a class="btn-link" href="sobre.html">
-    <span>←</span> Sobre o Ninho de Histórias
-  </a>
+    <a class="btn-link" href="sobre.html">
+      Sobre o Ninho de Histórias
+    </a>
 
-  <a class="btn-link" href="historias.html">
-    <span>←</span> Histórias em Vídeo
-  </a>
+    <a class="btn-link" href="historias.html">
+      Histórias em Vídeo
+    </a>
 
-  <a class="btn-link" href="leitura.html">
-    <span>←</span> Histórias para Leitura
-  </a>
+    <a class="btn-link" href="leitura.html">
+      Histórias para Leitura
+    </a>
 
-  <a class="btn-link" href="audios.html">
-    <span>←</span> Histórias em Áudio
-  </a>
+    <a class="btn-link" href="audios.html">
+      Histórias em Áudio
+    </a>
 
-</div>
-
+  </div>
 
 </section>
 
@@ -77,5 +119,4 @@
 
 </body>
 </html>
-
 
