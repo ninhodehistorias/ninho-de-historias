@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ninho Gestão V11 PRO</title>
+<title>Ninho Gestão V11.1 PRO</title>
 
 <style>
 :root{
@@ -84,7 +84,7 @@ box-shadow:0 2px 6px rgba(0,0,0,.05);
 }
 
 .small{font-size:13px;color:#666;}
-.delete{color:red;font-size:13px;cursor:pointer;}
+.delete{color:red;font-size:13px;cursor:pointer;margin-left:10px;}
 .update{color:var(--blue);font-size:13px;cursor:pointer;margin-right:10px;}
 .badge{
 padding:4px 8px;
@@ -98,19 +98,18 @@ margin-right:4px;
 .normal{background:#777;}
 .bom{background:var(--orange);}
 .viral{background:var(--green);}
-.alerta{background:var(--purple);}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-<h1>Ninho Gestão 📊 V11 PRO</h1>
+<h1>Ninho Gestão 📊 V11.1 PRO</h1>
 
 <div class="card">
 <input type="number" id="channelSubs" placeholder="Total de inscritos">
-<input type="number" id="metaHoras" placeholder="Meta Horas (ex: 4000)" value="4000">
-<input type="number" id="metaSubs" placeholder="Meta Inscritos (ex: 1000)" value="1000">
+<input type="number" id="metaHoras" placeholder="Meta Horas" value="4000">
+<input type="number" id="metaSubs" placeholder="Meta Inscritos" value="1000">
 <button onclick="saveSubs()">Salvar Metas</button>
 </div>
 
@@ -160,10 +159,15 @@ save();
 }
 
 function addVideo(){
-const title=document.getElementById("title").value.trim();
-const views=parseInt(document.getElementById("views").value);
-const watch=parseFloat(document.getElementById("watchTime").value)||0;
-const date=document.getElementById("postDate").value;
+const titleInput=document.getElementById("title");
+const viewsInput=document.getElementById("views");
+const watchInput=document.getElementById("watchTime");
+const dateInput=document.getElementById("postDate");
+
+const title=titleInput.value.trim();
+const views=parseInt(viewsInput.value);
+const watch=parseFloat(watchInput.value)||0;
+const date=dateInput.value;
 
 if(!title || isNaN(views) || views<0 || !date){
 alert("Preencha dados válidos.");
@@ -180,6 +184,12 @@ history:[{date:new Date(),views}],
 });
 
 save();
+
+/* LIMPAR CAMPOS */
+titleInput.value="";
+viewsInput.value="";
+watchInput.value="";
+dateInput.value="";
 }
 
 function updateViews(id){
@@ -188,6 +198,15 @@ let novo=parseInt(prompt("Novo total de views:",v.views));
 if(!isNaN(novo) && novo>=0){
 v.history.push({date:new Date(),views:novo});
 v.views=novo;
+save();
+}
+}
+
+function updateWatch(id){
+let v=data.videos.find(x=>x.id===id);
+let novo=parseFloat(prompt("Novo total de horas assistidas:",v.watch));
+if(!isNaN(novo) && novo>=0){
+v.watch=novo;
 save();
 }
 }
@@ -247,6 +266,7 @@ ${v.watch}h assistidas<br>
 <span class="small">🔥 ${vel} views/dia (7d)</span><br>
 <span class="badge ${perf}">${perf.toUpperCase()}</span><br>
 <span class="update" onclick="updateViews('${v.id}')">Atualizar Views</span>
+<span class="update" onclick="updateWatch('${v.id}')">Atualizar Horas</span>
 <span class="delete" onclick="deleteVideo('${v.id}')">Excluir</span>
 `;
 
@@ -288,5 +308,6 @@ save();
 render();
 
 </script>
+
 </body>
 </html>
