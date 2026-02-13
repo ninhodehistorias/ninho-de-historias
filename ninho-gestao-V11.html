@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ninho Gestão V11.1 PRO</title>
+<title>Ninho Gestão V11.2 PRO</title>
 
 <style>
 :root{
@@ -104,16 +104,26 @@ margin-right:4px;
 <body>
 <div class="container">
 
-<h1>Ninho Gestão 📊 V11.1 PRO</h1>
+<h1>Ninho Gestão 📊 V11.2 PRO</h1>
 
+<!-- 🔹 INSCRITOS -->
 <div class="card">
+<h3>Inscritos do Canal</h3>
 <input type="number" id="channelSubs" placeholder="Total de inscritos">
-<input type="number" id="metaHoras" placeholder="Meta Horas" value="4000">
-<input type="number" id="metaSubs" placeholder="Meta Inscritos" value="1000">
-<button onclick="saveSubs()">Salvar Metas</button>
+<button onclick="saveSubs()">Salvar Inscritos</button>
 </div>
 
+<!-- 🔹 METAS -->
 <div class="card">
+<h3>Metas de Monetização</h3>
+<input type="number" id="metaHoras" placeholder="Meta Horas" value="4000">
+<input type="number" id="metaSubs" placeholder="Meta Inscritos" value="1000">
+<button onclick="saveMetas()">Salvar Metas</button>
+</div>
+
+<!-- 🔹 CADASTRO -->
+<div class="card">
+<h3>Cadastrar Vídeo</h3>
 <input type="text" id="title" placeholder="Nome do Vídeo">
 <input type="number" id="views" placeholder="Views atuais">
 <input type="number" id="watchTime" placeholder="Horas assistidas totais">
@@ -137,7 +147,7 @@ margin-right:4px;
 
 <script>
 
-const STORAGE="yt_ninho_v11";
+const STORAGE="yt_ninho_v12";
 
 let data=JSON.parse(localStorage.getItem(STORAGE)) || {
 videos:[],
@@ -153,6 +163,10 @@ render();
 
 function saveSubs(){
 data.subs=parseInt(channelSubs.value)||0;
+save();
+}
+
+function saveMetas(){
 data.metaHoras=parseInt(metaHoras.value)||4000;
 data.metaSubs=parseInt(metaSubs.value)||1000;
 save();
@@ -185,7 +199,6 @@ history:[{date:new Date(),views}],
 
 save();
 
-/* LIMPAR CAMPOS */
 titleInput.value="";
 viewsInput.value="";
 watchInput.value="";
