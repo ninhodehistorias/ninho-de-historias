@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ninho Gestão V11 PRO</title>
+
+<style>
+:root{
+--primary:#ff0000;
+--bg:#f4f6f9;
+--white:#ffffff;
+--green:#28a745;
+--orange:#ff9800;
+--blue:#007bff;
+--purple:#7b5cff;
+}
+
+body{
+margin:0;
+font-family:system-ui,-apple-system,Segoe UI;
+background:var(--bg);
+padding:15px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+h1{
+margin:0 0 15px;
+color:var(--primary);
+font-size:22px;
+}
+
+.card{
+background:var(--white);
+padding:15px;
+border-radius:14px;
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+margin-bottom:15px;
+}
+
+input,button,select{
+width:100%;
+padding:14px;
+margin-bottom:10px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:16px;
+}
+
+button{
+background:var(--primary);
+color:white;
+font-weight:bold;
+border:none;
+cursor:pointer;
+}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-bottom:15px;
+}
+
+.stat{
+background:var(--white);
+padding:12px;
+border-radius:12px;
+text-align:center;
+font-size:14px;
+box-shadow:0 2px 6px rgba(0,0,0,.05);
+}
+
+.video{
+background:var(--white);
+padding:12px;
+border-radius:12px;
+margin-bottom:10px;
+box-shadow:0 2px 6px rgba(0,0,0,.05);
+}
+
+.small{font-size:13px;color:#666;}
+.delete{color:red;font-size:13px;cursor:pointer;}
+.update{color:var(--blue);font-size:13px;cursor:pointer;margin-right:10px;}
+.badge{
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+color:white;
+display:inline-block;
+margin-top:5px;
+margin-right:4px;
+}
+.normal{background:#777;}
+.bom{background:var(--orange);}
+.viral{background:var(--green);}
+.alerta{background:var(--purple);}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>Ninho Gestão 📊 V11 PRO</h1>
+
+<div class="card">
+<input type="number" id="channelSubs" placeholder="Total de inscritos">
+<input type="number" id="metaHoras" placeholder="Meta Horas (ex: 4000)" value="4000">
+<input type="number" id="metaSubs" placeholder="Meta Inscritos (ex: 1000)" value="1000">
+<button onclick="saveSubs()">Salvar Metas</button>
+</div>
+
+<div class="card">
+<input type="text" id="title" placeholder="Nome do Vídeo">
+<input type="number" id="views" placeholder="Views atuais">
+<input type="number" id="watchTime" placeholder="Horas assistidas totais">
+<input type="date" id="postDate">
+<button onclick="addVideo()">Adicionar Vídeo</button>
+</div>
+
+<div class="card">
+<select id="sortMode" onchange="render()">
+<option value="score">Melhor Performance</option>
+<option value="velocity">Mais rápidos (7 dias)</option>
+<option value="views">Mais vistos</option>
+<option value="recent">Mais recentes</option>
+</select>
+</div>
+
+<div class="stats" id="stats"></div>
+<div id="videoList"></div>
+
+</div>
+
+<script>
+
+const STORAGE="yt_ninho_v11";
+
+let data=JSON.parse(localStorage.getItem(STORAGE)) || {
+videos:[],
+subs:0,
+metaHoras:4000,
+metaSubs:1000
+};
+
+function save(){
+localStorage.setItem(STORAGE,JSON.stringify(data));
+render();
+}
+
+function saveSubs(){
+data.subs=parseInt(channelSubs.value)||0;
+data.metaHoras=parseInt(metaHoras.value)||4000;
+data.metaSubs=parseInt(metaSubs.value)||1000;
+save();
+}
+
+function addVideo(){
+const title=document.getElementById("title").value.trim();
+const views=parseInt(document.getElementById("views").value);
+const watch=parseFloat(document.getElementById("watchTime").value)||0;
+const date=document.getElementById("postDate").value;
+
+if(!title || isNaN(views) || views<0 || !date){
+alert("Preencha dados válidos.");
+return;
+}
+
+data.videos.push({
+id:crypto.randomUUID(),
+title,
+views,
+watch,
+date,
+history:[{date:new Date(),views}],
+});
+
+save();
+}
+
+function updateViews(id){
+let v=data.videos.find(x=>x.id===id);
+let novo=parseInt(prompt("Novo total de views:",v.views));
+if(!isNaN(novo) && novo>=0){
+v.history.push({date:new Date(),views:novo});
+v.views=novo;
+save();
+}
+}
+
+function velocity7(v){
+let sevenDaysAgo=Date.now()-(7*24*60*60*1000);
+let past=v.history.find(h=>new Date(h.date).getTime()>=sevenDaysAgo);
+if(!past) return 0;
+return (v.views-past.views)/7;
+}
+
+function score(v){
+return (velocity7(v)*0.6)+(v.watch*0.3)+(v.views*0.1);
+}
+
+function performance(v){
+let vel=velocity7(v);
+if(vel<10) return "normal";
+if(vel<50) return "bom";
+return "viral";
+}
+
+function render(){
+
+channelSubs.value=data.subs||0;
+metaHoras.value=data.metaHoras;
+metaSubs.value=data.metaSubs;
+
+let list=document.getElementById("videoList");
+list.innerHTML="";
+
+let vids=[...data.videos];
+let mode=document.getElementById("sortMode").value;
+
+if(mode==="score") vids.sort((a,b)=>score(b)-score(a));
+if(mode==="velocity") vids.sort((a,b)=>velocity7(b)-velocity7(a));
+if(mode==="views") vids.sort((a,b)=>b.views-a.views);
+if(mode==="recent") vids.sort((a,b)=>new Date(b.date)-new Date(a.date));
+
+let totalViews=0;
+let totalHours=0;
+
+vids.forEach(v=>{
+totalViews+=v.views;
+totalHours+=v.watch;
+
+let vel=velocity7(v).toFixed(1);
+let perf=performance(v);
+
+let div=document.createElement("div");
+div.className="video";
+
+div.innerHTML=`
+<strong>${v.title}</strong><br>
+${v.views.toLocaleString()} views<br>
+${v.watch}h assistidas<br>
+<span class="small">🔥 ${vel} views/dia (7d)</span><br>
+<span class="badge ${perf}">${perf.toUpperCase()}</span><br>
+<span class="update" onclick="updateViews('${v.id}')">Atualizar Views</span>
+<span class="delete" onclick="deleteVideo('${v.id}')">Excluir</span>
+`;
+
+list.appendChild(div);
+});
+
+let horasPerc=Math.min((totalHours/data.metaHoras)*100,100);
+let subsPerc=Math.min((data.subs/data.metaSubs)*100,100);
+
+document.getElementById("stats").innerHTML=`
+<div class="stat">
+Views Totais<br><strong>${totalViews.toLocaleString()}</strong>
+</div>
+
+<div class="stat">
+Horas (${totalHours.toFixed(1)}/${data.metaHoras})<br>
+<strong>${horasPerc.toFixed(1)}%</strong>
+</div>
+
+<div class="stat">
+Inscritos (${data.subs}/${data.metaSubs})<br>
+<strong>${subsPerc.toFixed(1)}%</strong>
+</div>
+
+<div class="stat">
+Vídeos cadastrados<br>
+<strong>${data.videos.length}</strong>
+</div>
+`;
+}
+
+function deleteVideo(id){
+if(confirm("Remover vídeo?")){
+data.videos=data.videos.filter(v=>v.id!==id);
+save();
+}
+}
+
+render();
+
+</script>
+</body>
+</html>
